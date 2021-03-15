@@ -45,8 +45,8 @@ static int scriptauthFunc(struct clientparam *param) {
     // fprintf(stderr, "[>>>] status: %d\n", status);
     
         if(!param->username) return 4;
-    
-    for(int i=0; i<strlen(param->username); i++) {
+    int i;
+    for(i=0; i<strlen(param->username); i++) {
         if(param->username[i]=='+' || param->username[i]=='-' ) continue; 
         if(!isdigit(param->username[i])) {
             if(!isalpha(param->username[i])){
@@ -55,7 +55,7 @@ static int scriptauthFunc(struct clientparam *param) {
         }
     }
 
-    for(int i=0; i<strlen(param->password); i++) {
+    for(i=0; i<strlen(param->password); i++) {
         if(!isdigit(param->password[i])) {
             if(!isalpha(param->password[i])){
                 return 1;
