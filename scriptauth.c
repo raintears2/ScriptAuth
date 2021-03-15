@@ -47,7 +47,9 @@ static int scriptauthFunc(struct clientparam *param) {
         if(!param->username) return 4;
     int i;
     for(i=0; i<strlen(param->username); i++) {
-        if(param->username[i]=='+' || param->username[i]=='-' ) continue; 
+        if(param->username[i] == '+' || param->username[i] == '-' ){ 
+            continue;
+            }
         if(!isdigit(param->username[i])) {
             if(!isalpha(param->username[i])){
                 return 1;
