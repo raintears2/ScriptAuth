@@ -31,7 +31,7 @@ static int scriptauthFunc(struct clientparam *param) {
         NI_NUMERICHOST | NI_NUMERICSERV
     );
 
-    char addrstr[15];
+    char addrstr[16];
     snprintf(addrstr, sizeof addrstr, "%u.%u.%u.%u", 
         (unsigned)(((unsigned char *)(SAADDR(&param->sincr)))[0]),
         (unsigned)(((unsigned char *)(SAADDR(&param->sincr)))[1]),
@@ -43,6 +43,26 @@ static int scriptauthFunc(struct clientparam *param) {
     // int status;
     // status = execve((char *) service, argv, NULL);
     // fprintf(stderr, "[>>>] status: %d\n", status);
+    
+        if(!param->username) return 4;
+    
+    for(int i=0; i<strlen(param->username); i++) {
+        if(param->username[i]=='+' || param->username[i]=='-' ) continue; 
+        if(!isdigit(param->username[i])) {
+            if(!isalpha(param->username[i])){
+                return 1;
+            }
+        }
+    }
+
+    for(int i=0; i<strlen(param->password); i++) {
+        if(!isdigit(param->password[i])) {
+            if(!isalpha(param->password[i])){
+                return 1;
+            }
+        }
+    }
+
 
     char *username = "-";
     if (param->username) {
